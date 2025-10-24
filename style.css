@@ -1,0 +1,196 @@
+body {
+    
+  margin: 0;
+  padding: 0;
+  font-size: 1rem; /* ใช้ rem เพื่อปรับขนาดตาม browser */
+}
+
+a {
+    text-decoration: none;
+}
+
+#next1{
+    display: block;
+    margin: auto;
+    width: 200px;   
+    font-size: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #9cbae7;
+    border-radius: 8px;
+    border: none;
+    transition-duration: 0.7s;
+    cursor: pointer;
+}
+
+#buttonnext{
+    text-decoration: none;
+}
+
+#next1:hover{
+    background-color: #c0a8a8;
+    transition-duration: 0.7s;
+}
+
+#thai {
+    width: 30px;  
+    height: 30px;  
+    object-fit: cover; 
+    cursor: pointer;
+    margin-left: auto;
+
+}
+
+
+#disclaimer {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin: auto;
+    font-size: 60px;
+    color: #000000;
+}
+
+#welcome {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(184, 79, 79);
+    font-size: 5rem;
+    text-align: center;
+}
+
+#start {
+    display: block;
+    margin: auto;
+    font-size: 40px;
+    font-family: 'Kanit', sans-serif;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition-duration: 0.7s;
+}
+
+#start:hover {
+    background-color: #c0a8a8;
+    transition-duration: 0.7s;
+    border-radius: 8px;
+    animation: pulse 1s infinite;
+}
+
+.container {
+  max-width: 1200px;
+  width: 90%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.welcome {
+  background-color: #addeeb;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  animation: fadeColor 5s linear infinite;
+}
+
+#fandis {
+    font-family: 'Kanit', sans-serif;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ff5733;
+    margin-top: 20px;
+    
+}
+
+#en {
+    font-family: 'Kanit', sans-serif;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #33c1ff;
+}
+
+.sec1 {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;   /* จัดกลางแนวนอน */
+    align-items: center;       /* จัดกลางแนวตั้ง */
+    flex-direction: column;
+    background: #a2cfda;
+    /* ลบ padding/margin ที่ไม่จำเป็นออก */
+}
+
+.sec1::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('https://i.ytimg.com/vi/nCbRiBW1_qE/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD7QfgAKQpARE1NEWFsA5M6UEsZYQ');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4; 
+    z-index: 0;
+    backdrop-filter: blur(30px);
+}
+
+.sec1 > * {
+    position: relative;
+    z-index: 1;
+}
+
+.sec2 {
+    padding: 20px;
+    background-color: #f7d794;
+
+    width: auto;
+    height: auto;
+    box-sizing: border-box;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    min-height: 100vh;
+}
+
+#tako {
+    width: 120px;   /* ปรับขนาดที่ต้องการ */
+    height: auto;
+    display: block;
+    margin: left: auto;
+    animation: pulse 2s infinite;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;     
+    text-align: center;       
+}
+
+#pageFade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.7s;
+}
+
+.fade-out {
+    opacity: 1 !important;
+    pointer-events: all;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes fadeColor {
+  0%   { background-color: #addeeb; }
+  50%  { background-color: #ffcccb; }
+  100% { background-color: #addeeb; }
+}

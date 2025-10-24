@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Fade in/out หน้า */
+        #pageFadeIn {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            opacity: 1;
+            z-index: 9999;
+            pointer-events: all;
+            transition: opacity 2s;
+        }
+        #pageFadeIn.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        body {
+            background-color: #383535;
+            color: white;
+            display: flex;              
+            justify-content: center;    
+            align-items: center;        
+            min-height: 100vh;        
+            margin: 0;                    
+        }
+
+        .img-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px; 
+        }
+
+        .locked-img {
+            width: 800px;    
+            height: auto;   
+            max-width: 90vw; 
+            max-height: 80vh;
+            cursor: pointer;
+        }
+
+        /* modal popup */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: rgba(12,12,12,0.98);
+            color: #fff;
+            padding: 18px 20px;
+            border-radius: 10px;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            position: relative;
+            font-family: 'Kanit', sans-serif;
+            line-height: 1.5;
+        }
+        .modal h2 { margin: 0 0 8px 0; font-size: 1.2rem; color:#ff8b8b; }
+        .modal p { margin: 0 0 12px 0; font-size: 1rem; color:#ddd; }
+        .modal .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px;
+        }
+        @media (max-width:420px){
+            .modal { padding: 14px; }
+            .modal h2 { font-size: 1rem; }
+        }
+
+        /* ปุ่ม OK */
+        #modalOk {
+            background:#53615e;
+            border:none;
+            padding:8px 12px;
+            border-radius:8px;
+            color:#fff;
+            cursor:pointer;
+        }
+        #modalOk:hover { background:#3e4a48; }
+    </style>
+</head>
+<body>
+    <!-- fade in หน้า -->
+    <div id="pageFadeIn"></div>
+
+    <div class="img-container">
+        <img src="img/mh1xvjb2cjru16.jpeg" alt="" class="locked-img" id="inspectImg">
+        <h1>you found suspecious paper on the floor</h1>
+        <h3>click at the paper to inspect</h3>
+        <audio id="walkSound" src="sound/Page turn sound effect.mp3"></audio>
+
+        <!-- modal popup -->
+        <div id="modalOverlay" class="modal-overlay" aria-hidden="true">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+                <button id="modalClose" class="close-btn" aria-label="Close">&times;</button>
+                <h2 id="modalTitle">กระดาษน่าสงสัย</h2>
+                <p id="modalText">
+                    "เธอใช้ชีวิตไปเพื่ออะไรกันเคยถามตัวเธอเองไหม<br>
+                    แต่เธอคงไม่คิดถึงมันหลอก ชิสุกะ จัง...<br>
+                    ชีวิตของเธอต่อจากนี้เธอจะได้พบกับอะไรสักอย่างแน่นอน"
+                </p>
+                <div style="text-align:right; margin-top:10px;">
+                    <button id="modalOk">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            // fade in หน้า
+            setTimeout(function() {
+                document.getElementById('pageFadeIn').classList.add('hide');
+            }, 4000);
+
+            // เสียงเดิน
+            const audio = document.getElementById('walkSound');
+            audio.volume = 0.5;
+            audio.play().catch(() => {
+                document.body.addEventListener('click', () => audio.play(), { once: true });
+            });
+
+            // modal logic
+            const inspectImg = document.getElementById('inspectImg');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalClose = document.getElementById('modalClose');
+            const modalOk = document.getElementById('modalOk');
+            const fade = document.getElementById('pageFadeIn');
+
+            function openModal() {
+                if (!modalOverlay) return;
+                modalOverlay.classList.add('active');
+                modalOverlay.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeModal() {
+                if (!modalOverlay) return;
+                modalOverlay.classList.remove('active');
+                modalOverlay.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            if (inspectImg) inspectImg.addEventListener('click', openModal);
+            if (modalClose) modalClose.addEventListener('click', closeModal);
+
+            if (modalOk) modalOk.addEventListener('click', function() {
+                closeModal();
+                fade.classList.remove('hide'); // ทำ fade out
+                setTimeout(function() {
+                    window.location.href = 'game6.html'; // หน้าเป้าหมาย
+                }, 1000);
+            });
+
+            if (modalOverlay) {
+                modalOverlay.addEventListener('click', function(e) {
+                    if (e.target === modalOverlay) closeModal();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

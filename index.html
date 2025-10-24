@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-image: url('img/hq720.jpg');
+            background-size: cover;
+            backdrop-filter: blur(5px);
+            color: #fff;
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: #333;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            padding: 40px 32px;
+            max-width: 420px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+        #disclaimer {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+        #fandis {
+            text-align: center;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        #en {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+        .actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        #next1 {
+            background: #53615e;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 28px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #next1:hover {
+            background: #c0a8a8;
+        }
+        #thai {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            object-fit: cover;
+            cursor: pointer;
+            transition: border 0.2s;
+        }
+        #thai:hover {
+            border: 2px solid #00ffcc;
+        }
+    </style>
+    <script src="script.js"></script>
+</head>
+<body id="mainBody">
+    <div class="container">
+        <h1 id="disclaimer">Disclaimer!!</h1>
+        <p id="fandis">
+            this is fan manga from someone who really love takopi serie <br>
+            so this is unofficial so please know this before you playing
+        </p>
+        <p id="en">enjoy!</p>
+        <div class="actions">
+            <a href="first.html"><button id="next1">next</button></a>
+            <a href="indexthai.html"><img id="thai" src="img/circle-flag-of-thailand-free-png.webp" alt="Thai Flag"></a>
+        </div>
+    </div>
+</body>
+</html>

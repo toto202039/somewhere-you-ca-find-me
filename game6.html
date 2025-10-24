@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fade In Page</title>
+<style>
+    #pageFadeIn {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        opacity: 1;
+        z-index: 9999;
+        pointer-events: all;
+        transition: opacity 2s;
+    }
+    #pageFadeIn.hide {
+        opacity: 0;
+        pointer-events: none;
+    }
+    body {
+        background-color: #383535;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+</style>
+</head>
+<body>
+
+<div id="pageFadeIn"></div>
+<audio id="walkSound" src="sound/baka.wav"></audio>
+<h1>To be continue...</h1>
+
+
+<script>
+window.onload = function() {
+    const fade = document.getElementById('pageFadeIn');
+    setTimeout(() => {
+        fade.classList.add('hide');
+    }, 1700);
+
+    const audio = document.getElementById('walkSound');
+    audio.volume = 0.15; //
+    
+   
+    setTimeout(() => {
+        audio.play().catch(() => {
+            document.body.addEventListener('click', () => audio.play(), { once: true });
+        });
+    }, 2000);
+};
+
+const nextButton = document.getElementById('next');
+if (nextButton) {
+    nextButton.addEventListener('click', function() {
+        const fade = document.getElementById('pageFadeIn');
+        fade.classList.remove('hide');
+        setTimeout(function() {
+            window.location.href = 'game2.html';
+        }, 1700);
+    });
+}
+</script>
+
+</body>
+</html>

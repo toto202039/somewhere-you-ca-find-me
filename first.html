@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Some where I can stay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* overlay fade for page transitions */
+        #pageFade {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+        .fade-out {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* page layout */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Kanit', sans-serif;
+            background: radial-gradient(ellipse at center, #1b1a1a 0%, #0f0f0f 60%), url('img/hq720.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* grain / noise overlay for horror texture */
+        body::after{
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+              linear-gradient(transparent 50%, rgba(0,0,0,0.02) 50%),
+              linear-gradient(90deg, transparent 50%, rgba(255,255,255,0.02) 50%);
+            mix-blend-mode: overlay;
+            opacity: 0.6;
+            background-size: 3px 3px, 3px 3px;
+            z-index: 9998;
+        }
+
+        .sec2 {
+            text-align: center;
+            padding: 48px;
+            background: rgba(0,0,0,0.45);
+            border: 1px solid rgba(255,0,0,0.06);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.8), inset 0 0 40px rgba(255,0,0,0.02);
+            border-radius: 12px;
+            backdrop-filter: blur(4px);
+        }
+
+        #welcome {
+            margin: 0 0 18px 0;
+            font-size: 2.6rem;
+            color: #ff6262;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow:
+                0 0 14px rgba(255,98,98,0.12),
+                0 6px 18px rgba(0,0,0,0.8);
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 50%, 100% { opacity: 1; transform: translateY(0); }
+            45% { opacity: 0.6; transform: translateY(-1px) skewX(-0.3deg); }
+            48% { opacity: 0.9; transform: translateY(0.5px) skewX(0.2deg); }
+        }
+
+        #start {
+            background: linear-gradient(180deg, #2a2a2a, #0e0e0e);
+            color: #ffdede;
+            border: 2px solid rgba(255,98,98,0.12);
+            padding: 12px 28px;
+            font-size: 1.05rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            outline: none;
+        }
+
+        #start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(255,98,98,0.06);
+            border-color: rgba(255,98,98,0.28);
+        }
+
+        /* small shake when clicked */
+        #start:active {
+            transform: translateY(0) scale(0.995);
+        }
+
+        /* subtle red pulse behind button */
+        #start::before{
+            content:"";
+            position: absolute;
+            width: 180px;
+            height: 52px;
+            background: radial-gradient(circle at 50% 30%, rgba(255,98,98,0.08), transparent 40%);
+            border-radius: 10px;
+            z-index: -1;
+            display: block;
+            margin: -12px 0 0 -28px;
+            pointer-events: none;
+        }
+
+        /* small responsive */
+        @media (max-width:600px){
+            #welcome{ font-size:1.6rem; }
+            .sec2 { padding: 24px; }
+            #start { width: 140px; }
+        }
+    </style>
+</head>
+<body id="mainBody">
+
+    <div id="pageFade"></div>
+
+    <section class="sec2">
+        <div>
+            <h1 id="welcome">some where I can stay</h1>
+            <button id="start">Start</button>
+        </div>
+    </section>
+
+    <!-- ambient audio + click cue -->
+    <audio id="ambient" src="sound/ambient_loop.mp3" loop></audio>
+    <audio id="cue" src="sound/hit_short.mp3"></audio>
+
+    <script>
+        // play ambient quietly, fallback to user click if autoplay blocked
+        document.addEventListener('DOMContentLoaded', function() {
+            const ambient = document.getElementById('ambient');
+            ambient.volume = 0.12;
+            ambient.play().catch(() => {
+                document.body.addEventListener('click', () => ambient.play(), { once: true });
+            });
+
+            const start = document.getElementById('start');
+            const cue = document.getElementById('cue');
+            const fade = document.getElementById('pageFade');
+
+            start.addEventListener('click', function(e) {
+                e.preventDefault();
+                // play a short cue then fade and navigate
+                cue.volume = 0.9;
+                cue.currentTime = 0;
+                cue.play().catch(()=>{});
+                fade.classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = 'game1.html';
+                }, 900); // match transition
+            });
+        });
+    </script>
+</body>
+</html>

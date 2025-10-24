@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        #pageFadeIn {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            opacity: 1;
+            z-index: 9999;
+            pointer-events: all;
+            transition: opacity 2s; 
+        }
+        #pageFadeIn.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #pageFadeIn.instant {
+            transition: none;
+        }
+        body {
+            background-color: #383535;
+            color: white;
+            display: flex;              
+            justify-content: center;    
+            align-items: center;        
+            min-height: 100vh;        
+            margin: 0;                    
+        }
+
+         #dialog-box {
+      padding: 20px;
+
+      width: 1000px;
+      min-height: 100px;
+      margin: center;
+     font-size: 3rem;    
+     
+    }
+
+        .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #00ffcc;
+      animation: blink 0.8s infinite;
+    }
+
+        @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+        #next {
+            background-color: #53615e;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-bottom: auto;
+            transition-duration: 0.7s;
+            width: 150px;
+            height: 50px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #next:hover{
+      background-color: #c0a8a8;
+     transition-duration: 0.7s;
+        }
+
+    </style>
+</head>
+<body>
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <div id="dialog-box">
+      <span id="text"></span><span class="cursor"></span>
+    </div>
+    <button id="next">next</button>
+  </div>
+
+  <div id="pageFadeIn"></div>
+  <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('pageFadeIn').classList.add('hide');
+            }, 200); // เริ่ม fade หลังโหลดหน้าเล็กน้อย
+        });
+
+    const text = "บางครั้งคนเรามักจะลืมความหมายในการใช้ชีวิตไปแต่ทําไม่เราถึงต้องมีชีวิตอยู่กันนะ......."; // ข้อความที่ต้องการพิมพ์
+    const speed = 50; // 
+    let index = 0;
+
+    function typeWriter() {
+      if (index < text.length) {
+        document.getElementById("text").textContent += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+
+    // เริ่มทำงานเมื่อโหลดหน้าเสร็จ
+    window.onload = typeWriter;
+
+    // เพิ่มฟังก์ชันสำหรับปุ่ม next
+    document.getElementById('next').addEventListener('click', function() {
+      const fade = document.getElementById('pageFadeIn');
+      fade.classList.remove('hide'); // ค่อยๆ fade ดำ
+      setTimeout(function() {
+        window.location.href = 'game2.html';
+      }, 700); // รอให้จอดำแสดงก่อนเปลี่ยนหน้า (เพิ่มเป็น 700ms ให้ทัน fade)
+    });
+    </script>
+</body>
+</html>

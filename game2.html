@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #pageFadeIn {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            opacity: 1;
+            z-index: 9999;
+            pointer-events: all;
+            transition: opacity 5s;
+        }
+        #pageFadeIn.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        body {
+            background-color: #383535;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* ป้องกัน scroll */
+        }
+        .img-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .locked-img {
+            width: 1000px;
+            height: 600px;
+            object-fit: cover;
+            display: block;
+            background: #fff;
+        }
+        @media (max-width: 1000px), (max-height: 600px) {
+            html, body {
+                width: 100vw;
+                height: 100vh;
+                overflow: auto;
+            }
+            .locked-img {
+                width: 100vw;
+                height: 60vw;
+                max-width: 1000px;
+                max-height: 600px;
+                gap: 24px;
+            }
+        }
+                #next {
+            background-color: #53615e;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-bottom: auto;
+            transition-duration: 0.7s;
+            width: 150px;
+            height: 50px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition-duration: 0.7s;
+                    }
+
+        #next:hover {
+            background-color: #57706c;
+        }
+    </style>
+</head>
+<body>
+    <div id="pageFadeIn"></div>
+    <div class="img-container">
+        <img src="img/IMG_1257.png" alt="" class="locked-img">
+        <button id="next">walk</button>
+        <audio id="walkSound" src="sound/Sound Effects - Footsteps.mp3"></audio> <!-- เพิ่มแท็ก audio -->
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('pageFadeIn').classList.add('hide');
+            }, 200);
+        });
+
+       
+        document.getElementById('next').addEventListener('click', function() {
+            document.getElementById('walkSound').play();
+            const fade = document.getElementById('pageFadeIn');
+            fade.classList.remove('hide'); 
+            fade.style.transition = 'opacity 6s'; 
+            fade.style.opacity = '1'; 
+            setTimeout(function() {
+                window.location.href = 'game3.html';
+            }, 6000); 
+        });
+    </script>
+</body>
+</html>
